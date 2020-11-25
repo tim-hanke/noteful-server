@@ -6,6 +6,7 @@ const helmet = require("helmet");
 const { NODE_ENV } = require("./config");
 const foldersRouter = require("./folders/folders-router");
 const notesRouter = require("./notes/notes-router");
+const validateBearerToken = require("./validate-bearer-token");
 
 const app = express();
 
@@ -18,6 +19,8 @@ app.use(cors());
 app.get("/", (req, res) => {
   res.send("Hello, world!");
 });
+
+app.use(validateBearerToken);
 
 app.use("/api/folders", foldersRouter);
 app.use("/api/notes", notesRouter);
